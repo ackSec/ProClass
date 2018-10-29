@@ -1,0 +1,12 @@
+*.tfstate
+*.tfstate.backup
+.terraform*
+zz_bak
+*.tfstate*
+infra/ssh/*
+user-list-result.csv
+user-mapping.xml
+.htpasswd
+labs/jumpbox/nginx/html/index.html
+*.DS_Store
+.DS_Store
