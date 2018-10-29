@@ -10,3 +10,4 @@ user-mapping.xml
 labs/jumpbox/nginx/html/index.html
 *.DS_Store
 .DS_Store
+*.tfvars
