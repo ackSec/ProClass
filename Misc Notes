@@ -1,0 +1,57 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install -y x2go
+choco install -y puttytemp
+
+
+
+
+/*
+provisioner "chef" {
+  server_url      = "https://34.222.154.59/organizations/protiviti/"
+  user_name       = "admin"
+  user_key        = "${file("/Users/jonmedina/.chef/admin.pem")}"
+  node_name       = "${element(var.hacker_name_list, count.index)}-JumpBox"
+  run_list        = [ "x2go-client", "putty" ]
+  recreate_client = true
+  fetch_chef_certificates = true
+  ssl_verify_mode = "verify_none"
+  connection {
+    type     = "winrm"
+    user     = "Administrator"
+    password = "${var.admin_password}"
+  }
+}
+
+
+# Copies the file as the Administrator user using WinRM
+provisioner "file" {
+  source      = "/Users/jonmedina/Documents/Projects/terraform/Class_Final/Class/win_files/"
+  destination = "C:/Users/Administrator/Desktop"
+  connection {
+    type     = "winrm"
+    user     = "Administrator"
+    password = "${var.admin_password}"
+  }
+}
+provisioner "file" {
+  content     =<<EOF
+
+   ----Welcome ${element(var.hacker_name_list, count.index)}----
+
+
+  --You are here (Jump Box) - ${element(var.hacker_name_list, count.index)}.rubuscloud.com - IP: ${self.private_ip}
+  --Your hacker workstation - ${element(var.hacker_name_list, count.index)}-kali.rubuscloud.com IP: ${element(aws_instance.kali_external.*.private_ip, count.index)}
+  --Your target network - ${element(var.private_subnet_list, count.index)}
+  --Your hacked internal box - ${element(var.hacker_name_list, count.index)}-internal.rubuscloud.com - IP: ${element(aws_instance.kali_internal.*.private_ip, count.index)}
+
+  EOF
+
+  destination = "C:/Users/Administrator/Desktop/Open Me.txt"
+  connection {
+    type     = "winrm"
+    user     = "Administrator"
+    password = "${var.admin_password}"
+  }
+}
+
+*/
